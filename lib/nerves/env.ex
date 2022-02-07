@@ -321,7 +321,7 @@ defmodule Nerves.Env do
   Helper function for returning the toolchain_platform type package
   """
   @spec toolchain_platform() :: Nerves.Package.t()
-  def toolchain_platform do
+  def toolchain_platform() do
     toolchain().platform
   end
 
@@ -333,7 +333,7 @@ defmodule Nerves.Env do
   for the package defining system_platform.
   """
   @spec bootstrap() :: :ok
-  def bootstrap do
+  def bootstrap() do
     nerves_system_path = system_path()
     nerves_toolchain_path = toolchain_path()
     packages = Nerves.Env.packages()
@@ -414,7 +414,7 @@ defmodule Nerves.Env do
   end
 
   @doc false
-  def toolchain_path do
+  def toolchain_path() do
     case Nerves.Env.toolchain() do
       nil ->
         nil
@@ -425,7 +425,7 @@ defmodule Nerves.Env do
   end
 
   @doc false
-  def system_path do
+  def system_path() do
     case Nerves.Env.system() do
       nil ->
         nil
