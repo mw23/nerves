@@ -1,12 +1,14 @@
 defmodule Nerves.Artifact.Resolvers.GithubAPI do
-  @behaviour Nerves.Artifact.Resolver
+  alias Nerves.Artifact.Resolver
+  alias Nerves.Utils
+  alias Nerves.Utils.HTTPClient
+
+  @behaviour Resolver
 
   @base_url "https://api.github.com/"
   @required_opts [:username, :token, :tag]
 
-  alias Nerves.Utils
-  alias Nerves.Utils.HTTPClient
-
+  @impl Resolver
   def get({org_proj, opts}) do
     case validate_opts(opts) do
       {:ok, opts} ->

@@ -1,5 +1,7 @@
 defmodule Nerves.Artifact.Resolvers.URI do
-  @behaviour Nerves.Artifact.Resolver
+  alias Nerves.Artifact.Resolver
+
+  @behaviour Resolver
 
   @moduledoc """
   Downloads an artifact from a remote http location.
@@ -8,6 +10,7 @@ defmodule Nerves.Artifact.Resolvers.URI do
   @doc """
   Download the artifact from an http location
   """
+  @impl Resolver
   def get({location, opts}) do
     Nerves.Utils.Shell.info("  => Trying #{location}")
 

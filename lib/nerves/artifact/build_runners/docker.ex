@@ -56,10 +56,12 @@ defmodule Nerves.Artifact.BuildRunners.Docker do
   the packages defined artifact directory.
   """
 
-  @behaviour Nerves.Artifact.BuildRunner
-
   alias Nerves.Artifact
+  alias Nerves.Artifact.BuildRunner
   alias Nerves.Artifact.BuildRunners.Docker
+
+  @behaviour BuildRunner
+
   import Docker.Utils
 
   @version "~> 1.12 or ~> 1.12.0-rc2 or >= 17.0.0"
@@ -86,7 +88,7 @@ defmodule Nerves.Artifact.BuildRunners.Docker do
         ]
       end
   """
-  @spec build(Nerves.Package.t(), Nerves.Package.t(), term) :: :ok
+  @impl BuildRunner
   def build(pkg, _toolchain, opts) do
     preflight(pkg)
 
@@ -104,7 +106,7 @@ defmodule Nerves.Artifact.BuildRunners.Docker do
     {:ok, path}
   end
 
-  @spec archive(Nerves.Package.t(), Nerves.Package.t(), term) :: :ok
+  @impl BuildRunner
   def archive(pkg, _toolchain, _opts) do
     {:ok, pid} = Nerves.Utils.Stream.start_link(file: "archive.log")
     stream = IO.stream(pid, :line)
@@ -113,6 +115,7 @@ defmodule Nerves.Artifact.BuildRunners.Docker do
     copy_artifact(pkg, stream)
   end
 
+  @impl BuildRunner
   def clean(pkg) do
     Docker.Volume.name(pkg)
     |> Docker.Volume.delete()

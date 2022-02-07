@@ -30,7 +30,7 @@ defmodule Nerves.Artifact.BuildRunners.Local do
         ]
       end
   """
-  @spec build(Nerves.Package.t(), Nerves.Package.t(), term) :: BuildRunner.build_result()
+  @impl BuildRunner
   def build(pkg, toolchain, opts) do
     pkg.platform.build(pkg, toolchain, opts)
   end
@@ -38,7 +38,7 @@ defmodule Nerves.Artifact.BuildRunners.Local do
   @doc """
   Builds an artifact locally.
   """
-  @spec archive(Nerves.Package.t(), Nerves.Package.t(), term) :: BuildRunner.archive_result()
+  @impl BuildRunner
   def archive(pkg, toolchain, opts) do
     pkg.platform.archive(pkg, toolchain, opts)
   end
@@ -46,7 +46,7 @@ defmodule Nerves.Artifact.BuildRunners.Local do
   @doc """
   Builds an artifact locally.
   """
-  @callback clean(package :: Nerves.Package.t()) :: BuildRunner.clean_result()
+  @impl BuildRunner
   def clean(pkg) do
     pkg.platform.clean(pkg)
   end

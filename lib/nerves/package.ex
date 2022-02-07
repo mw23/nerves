@@ -36,7 +36,7 @@ defmodule Nerves.Package do
             | :hex
             | :git,
           platform: atom,
-          build_runner: atom,
+          build_runner: {module(), Keyword.t()},
           compilers: [atom],
           dep_opts: Keyword.t(),
           version: Version.t(),
@@ -95,7 +95,7 @@ defmodule Nerves.Package do
   Starts an interactive shell with the working directory set
   to the package path
   """
-  @spec shell(Nerves.Package.t()) :: :ok
+  @spec shell(Nerves.Package.t() | nil) :: :ok
   def shell(nil) do
     Mix.raise("Package is not loaded in your Nerves Environment.")
   end

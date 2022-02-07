@@ -123,7 +123,7 @@ defmodule Nerves.Env do
     * `app` - The atom of the app to load
     * `path` - Optional path for the app
   """
-  @spec ensure_loaded(app :: atom, path :: String.t()) ::
+  @spec ensure_loaded(app :: atom, path :: String.t() | nil) ::
           {:ok, Nerves.Package.t()} | {:error, term}
   def ensure_loaded(app, path \\ nil) do
     path = path || File.cwd!()
@@ -292,8 +292,8 @@ defmodule Nerves.Env do
   @doc """
   Helper function for returning the system type package
   """
-  @spec system() :: Nerves.Package.t()
-  def system do
+  @spec system() :: Nerves.Package.t() | nil
+  def system() do
     system =
       packages_by_type(:system)
       |> List.first()
@@ -305,15 +305,15 @@ defmodule Nerves.Env do
   Helper function for returning the system_platform type package
   """
   @spec system_platform() :: module()
-  def system_platform do
+  def system_platform() do
     system().platform
   end
 
   @doc """
   Helper function for returning the toolchain type package
   """
-  @spec toolchain() :: Nerves.Package.t()
-  def toolchain do
+  @spec toolchain() :: Nerves.Package.t() | nil
+  def toolchain() do
     toolchain =
       packages_by_type(:toolchain)
       |> List.first()
